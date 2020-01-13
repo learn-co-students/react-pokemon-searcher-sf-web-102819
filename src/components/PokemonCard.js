@@ -2,20 +2,47 @@ import React from 'react'
 import { Card } from 'semantic-ui-react'
 
 class PokemonCard extends React.Component {
+
+  constructor() {
+    super()
+    this.state = {
+      src: "",
+    }
+
+  }
+
+  componentDidMount(){
+    this.setState({
+      src: this.props.poke.sprites.front
+    })
+  }
+
+  swapSource = () => {
+  if (this.props.poke.sprites.front === this.state.src) {
+    this.setState({src: this.props.poke.sprites.back})
+  }
+  else {
+    this.setState({src: this.props.poke.sprites.front})
+  }
+
+ }
+
   render() {
+    
+
     return (
       <Card>
-        <div>
+        <div onClick={this.swapSource}>
           <div className="image">
-            <img alt="oh no!" />
+            <img src={this.state.src}  alt="hi"/>
           </div>
           <div className="content">
-            <div className="header">POKEMON NAME HERE</div>
+            <div className="header">{this.props.poke.name}</div>
           </div>
           <div className="extra content">
             <span>
               <i className="icon heartbeat red" />
-              POKEMON HP HERE hp
+              {this.props.poke.stats[5].value}
             </span>
           </div>
         </div>
